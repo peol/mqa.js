@@ -1,0 +1,189 @@
+/*global CSSMediaRule*/
+/*!
+ * mqa.js
+ * https://github.com/peol/mqa.js/
+ * MIT/GPL Dual License, use whatever fits your project.
+ * Copyright(C) Andrée Hansson (@peolanha) 2013
+ */
+(function() {
+	"use strict";
+
+	var callbacks = {};
+	var unbindCallbacks = {};
+	var queries = {};
+
+	/**
+	 * Helper to convert any array-like object to an actual Array.
+	 * @param {Object} arrayLike The object to convert
+	 * @returns {Array} An array converted from the array-like object
+	 */
+	function toArray(arrayLike) {
+		return Array.apply(null, arrayLike);
+	}
+
+	/**
+	 * Hooks up internal caches and callbacks to the `window.matchMedia` API for a specific alias.
+	 * @param {String} alias The unique alias for a specific media query
+	 */
+	function bind(alias) {
+		var mql = window.matchMedia(queries[alias]);
+		var cb = unbindCallbacks[alias] = triggerStack.bind(null, alias, mql);
+		cb.mql = mql;
+		mql.addListener(cb);
+	}
+
+	/**
+	 * Removes internal caches and unbinds the `window.matchMedia` handlers for a specific alias.
+	 * @param {String} alias The unique alias for a specific media query
+	 */
+	function unbind(alias) {
+		var unbindCallback = unbindCallbacks[alias];
+		unbindCallback.mql.removeListener(unbindCallback);
+		delete callbacks[alias];
+		delete unbindCallbacks[alias];
+	}
+
+	/**
+	 * Generic internal handler for `window.matchMedia#addListener`, invokes mqa callbacks for
+	 * a specific alias.
+	 * @param {String} alias The unique alias for a specific media query
+	 * @param {MediaQueryList} mql The media query API object returned from `window.matchMedia`
+	 */
+	function triggerStack(alias, mql) {
+		var stack = callbacks[alias];
+		if (!stack) {
+			return;
+		}
+		stack.forEach(function(callback) {
+			callback(mql.matches);
+		});
+	}
+
+	/**
+	 * mqa is a library that minimizes the overlap of actual
+	 * media queries between CSS and JavaScript. Other libraries tend to
+	 * force the developer into duplicating their media queries from CSS
+	 * to JavaScript, which decreases maintainability a lot. mqa uses a custom
+	 * syntax that it parses from @media rules and automatically triggers
+	 * events for by using defined aliases for the media queries.
+	 * @namespace
+	 * @name mqa
+	 * @example
+	 * // style.css:
+	 * &#64;media all and (min-device-width: 800px) {
+	 *	<strong>.-mqa-alias-myAliasName{}</strong>
+	 *	.some-class {
+	 *		color: red;
+	 *	}
+	 *	.some-other-class {
+	 *		color: blue;
+	 *	}
+	 * }
+	 * // script.js:
+	 * mqa.on("myAliasName", function(active) {
+	 *	// `active` indicates whether the media query was activated or not
+	 * });
+	 */
+	var mqa = window.mqa = {};
+	/**
+	 * Add an aliased query that can be used programmatically.
+	 * @param {String} alias The unique alias for the media query
+	 * @param {String} query The full media query to match against
+	 * @memberOf mqa
+	 * @example
+	 * mqa.add("landscape", "(orientation: landscape)");
+	 */
+	mqa.add = function(alias, query) {
+		if (queries.hasOwnProperty(alias)) {
+			throw new Error("Alias already defined: " + alias);
+		}
+		queries[alias] = query;
+	};
+	/**
+	 * Remove an aliased query. Removes all caches and bound listeners.
+	 * @param {String} alias The unique alias for the media query to remove
+	 * @memberOf mqa
+	 * @example
+	 * mqa.remove("landscape");
+	 */
+	mqa.remove = function(alias) {
+		delete queries[alias];
+		unbind(alias);
+	};
+	/**
+	 * Parses the document's CSS/media rules for aliased queries.
+	 * @memberOf mqa
+	 */
+	mqa.parse = function() {
+		toArray(document.styleSheets).forEach(function(sheet) {
+			toArray(sheet.cssRules).forEach(function(rule) {
+				if (rule instanceof CSSMediaRule) {
+					var alias = /-mqa-alias-(\w+)\s*?\{/.exec(rule.cssText);
+					if (alias) {
+						mqa.add(alias[1], rule.media.mediaText);
+					}
+				}
+			});
+		});
+	};
+	/**
+	 * Bind an callback for whenever a specific alias is (de-)activated.
+	 * @param {String} alias The alias to listen for
+	 * @param {Function} callback The handler when the query is triggered
+	 * @memberOf mqa
+	 * @example
+	 * mqa.on("landscape", function(active) {
+	 *	// invoked when the landscape media query is both activated and
+	 *	// deactivated, you can check `active` to determine which one it is
+	 * });
+	 */
+	mqa.on = function(alias, callback) {
+		var stack = callbacks[alias];
+		if (!stack) {
+			stack = [];
+			bind(alias);
+		}
+		stack.push(callback);
+		callbacks[alias] = stack;
+	};
+	/**
+	 * Unbinds a callback from a specific alias.
+	 * @param {String} alias The alias that was used to bind the event
+	 * @param {Function} callback The callback that was used to bind the event
+	 * @memberOf mqa
+	 * @example
+	 * function handler(active) {
+	 *	// remove this handler after being invoked once
+	 *	mqa.off("landscape", handler);
+	 * }
+	 * mqa.on("landscape", handler);
+	 */
+	mqa.off = function(alias, callback) {
+		var stack = callbacks[alias];
+		if (stack) {
+			var index = stack.indexOf(callback);
+			stack.splice(index, 1);
+			if (!stack.length) {
+				unbind(alias);
+			}
+		}
+	};
+	/**
+	 * An object imitating the internal list of aliases and their media queries.
+	 * @name queries
+	 * @type {Object}
+	 * @memberOf mqa
+	 * @example
+	 * mqa.queries; // => { "landscape": "(orientation: landscape)" }
+	 */
+	Object.defineProperty(mqa, "queries", {
+		get: function() {
+			var copy = {};
+			Object.keys(queries).forEach(function(key) {
+				copy[key] = queries[key];
+			});
+			return copy;
+		}
+	});
+	mqa.parse();
+}());
