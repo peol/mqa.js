@@ -171,6 +171,7 @@
 	/**
 	 * An object imitating the internal list of aliases and their media queries.
 	 * @name queries
+	 * @readOnly
 	 * @type {Object}
 	 * @memberOf mqa
 	 * @example
