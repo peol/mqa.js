@@ -1,0 +1,9 @@
+@media all and (orientation: landscape) {
+	.-mqa-alias-landscape{}
+}
+@media all and (max-width: 1024px) {
+	.-mqa-alias-maxwidth{}
+}
+@media all {
+	.-mqa-alias-third{}
+}

@@ -18,7 +18,25 @@
 	 * @returns {Array} An array converted from the array-like object
 	 */
 	function toArray(arrayLike) {
-		return Array.apply(null, arrayLike);
+		return Array.prototype.slice.apply(arrayLike);
+	}
+
+	/**
+	 * Generic internal handler for `window.matchMedia#addListener`, invokes mqa callbacks for
+	 * a specific alias.
+	 * @param {String} alias The unique alias for a specific media query
+	 * @param {MediaQueryList} mql The media query API object returned from `window.matchMedia`
+	 */
+	function createHandler(alias, mql) {
+		return function() {
+			var stack = callbacks[alias];
+			if (!stack) {
+				return;
+			}
+			stack.forEach(function(callback) {
+				callback(mql.matches);
+			});
+		};
 	}
 
 	/**
@@ -27,7 +45,7 @@
 	 */
 	function bind(alias) {
 		var mql = window.matchMedia(queries[alias]);
-		var cb = unbindCallbacks[alias] = triggerStack.bind(null, alias, mql);
+		var cb = unbindCallbacks[alias] = createHandler(alias, mql);
 		cb.mql = mql;
 		mql.addListener(cb);
 	}
@@ -38,25 +56,11 @@
 	 */
 	function unbind(alias) {
 		var unbindCallback = unbindCallbacks[alias];
-		unbindCallback.mql.removeListener(unbindCallback);
+		if (unbindCallback) {
+			unbindCallback.mql.removeListener(unbindCallback);
+		}
 		delete callbacks[alias];
 		delete unbindCallbacks[alias];
-	}
-
-	/**
-	 * Generic internal handler for `window.matchMedia#addListener`, invokes mqa callbacks for
-	 * a specific alias.
-	 * @param {String} alias The unique alias for a specific media query
-	 * @param {MediaQueryList} mql The media query API object returned from `window.matchMedia`
-	 */
-	function triggerStack(alias, mql) {
-		var stack = callbacks[alias];
-		if (!stack) {
-			return;
-		}
-		stack.forEach(function(callback) {
-			callback(mql.matches);
-		});
 	}
 
 	/**
@@ -99,6 +103,7 @@
 		}
 		queries[alias] = query;
 	};
+
 	/**
 	 * Remove an aliased query. Removes all caches and bound listeners.
 	 * @param {String} alias The unique alias for the media query to remove
@@ -107,9 +112,14 @@
 	 * mqa.remove("landscape");
 	 */
 	mqa.remove = function(alias) {
-		delete queries[alias];
-		unbind(alias);
+		var exist = queries.hasOwnProperty(alias);
+		if (exist) {
+			unbind(alias);
+			delete queries[alias];
+		}
+		return exist;
 	};
+
 	/**
 	 * Parses the document's CSS/media rules for aliased queries.
 	 * @memberOf mqa
@@ -126,6 +136,7 @@
 			});
 		});
 	};
+
 	/**
 	 * Bind an callback for whenever a specific alias is (de-)activated.
 	 * @param {String} alias The alias to listen for
@@ -138,6 +149,9 @@
 	 * });
 	 */
 	mqa.on = function(alias, callback) {
+		if (!queries.hasOwnProperty(alias)) {
+			throw new Error("No such alias: " + alias);
+		}
 		var stack = callbacks[alias];
 		if (!stack) {
 			stack = [];
@@ -146,6 +160,7 @@
 		stack.push(callback);
 		callbacks[alias] = stack;
 	};
+
 	/**
 	 * Unbinds a callback from a specific alias.
 	 * @param {String} alias The alias that was used to bind the event
@@ -168,6 +183,7 @@
 			}
 		}
 	};
+
 	/**
 	 * An object imitating the internal list of aliases and their media queries.
 	 * @name queries

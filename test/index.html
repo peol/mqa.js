@@ -1,0 +1,11 @@
+<!doctype html>
+<title>mqa.js tests</title>
+<link rel="stylesheet" href="test.css">
+<link rel="stylesheet" href="mocha/mocha.css">
+<div id="mocha"></div>
+<script src="../mqa.js"></script>
+<script src="expect/expect.js"></script>
+<script src="mocha/mocha.js"></script>
+<script>mocha.setup("tdd");</script>
+<script src="mqa.js"></script>
+<script>!window._phantom && mocha.run();</script>
