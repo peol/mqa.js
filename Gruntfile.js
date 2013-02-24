@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		jshint: {
 			all: [
-				"*.js"
+				"lib/*.js"
 			],
 			options: {
 				jshintrc: ".jshintrc"
@@ -11,10 +11,10 @@ module.exports = function(grunt) {
 		},
 		mocha: {
 			all: {
-				src: ['test/index.html'],
+				src: ["test/index.html"],
 				options: {
 					mocha: {
-						ui: 'tdd'
+						ui: "tdd"
 					},
 					run: true,
 					ignoreLeaks: false
