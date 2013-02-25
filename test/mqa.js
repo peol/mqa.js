@@ -6,6 +6,10 @@ describe("Parsing", function() {
 		expect(mqa.queries.maxwidth).to.be("(max-width: 1024px)");
 		expect(mqa.queries.third).to.be("all");
 	});
+	it("should be able to test for a media query's state", function() {
+		mqa.add("state", "(max-width: " + window.innerWidth + "px)");
+		expect(mqa.match("state")).to.be(true);
+	});
 });
 
 describe("Events", function() {
