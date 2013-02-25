@@ -1,6 +1,6 @@
 /*global describe, it, expect, mqa*/
 describe("Parsing", function() {
-	it("should parse all media queries with aliases", function() {
+	it("should parse all media queries with aliases (see test.css)", function() {
 		expect(Object.keys(mqa.queries).length).to.be(3);
 		expect(mqa.queries.landscape).to.be("(orientation: landscape)");
 		expect(mqa.queries.maxwidth).to.be("(max-width: 1024px)");
@@ -13,7 +13,7 @@ describe("Events", function() {
 		mqa.on("landscape", function(){});
 		// resize phantom.js viewport here to trigger the media query
 	});
-	it("should throw an error when binding an event when an alias doesn't exist", function() {
+	it("should throw an error when binding an event and the alias doesn't exist", function() {
 		function trigger() {
 			mqa.on("nonexisting", function(){});
 		}
