@@ -6,10 +6,9 @@ Most media query libraries I've seen forces the developer to duplicate their med
 * [Documentation](http://peol.github.com/mqa.js/mqa.html)
 
 # Browser support
-This is a rather quick hack and I haven't tested it on all modern browsers, however, every browser that supports `window.matchMedia` and Array Extras should be fine. Currently tested on Firefox 19, Safari 6, Chrome 24.
-
-# TODO
-* Test with polyfills and see how much work there is to get IE9 to work
+Every browser that supports `window.matchMedia` and Array Extras should be fine. Currently tested on Firefox 19, Safari 6, Chrome 24, IE9 (with [polyfills](https://github.com/paulirish/matchMedia.js/))*, IE10.
 
 # License
 Dual license, MIT/GPL. Use whatever fits your project.
+
+_* = When using the polyfill, an initial event is triggered when a media query is matched when loading the document. This is not the case with native implementations.
