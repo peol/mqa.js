@@ -4,6 +4,7 @@ Most media query libraries I've seen forces the developer to duplicate their med
 
 * [Demo](http://peol.github.com/mqa.js/demo/index.html) (no polyfill)
 * [Documentation](http://peol.github.com/mqa.js/mqa.html)
+* [Blog post explaining it](http://andreehansson.se/introducing-mqa-js/)
 
 # Browser support
 Every browser that supports `window.matchMedia` and Array Extras should be fine. Currently tested on Firefox 19,
