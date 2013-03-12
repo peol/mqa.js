@@ -8,15 +8,15 @@ th {
 }
 
 @media all and (orientation: landscape) {
-	.-mqa-alias-landscape {}
+	#-mqa-alias-landscape {}
 }
 
 @media all and (orientation: portrait) {
-	.-mqa-alias-portrait {}
+	#-mqa-alias-portrait {}
 }
 
 @media all and (max-width: 600px) {
-	.-mqa-alias-devicewidth {}
+	#-mqa-alias-devicewidth {}
 	table {
 		color: blue;
 	}
