@@ -1,6 +1,9 @@
 language: node_js
 node_js:
-	- 0.8
+  - 0.8
 branches:
-	only:
-		- master
+  only:
+    - master
+before_script:
+  - npm install grunt-cli -g
+  - npm install
