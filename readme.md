@@ -25,7 +25,11 @@ $ grunt
 ```
 
 # Contributing
-There's no real style-guide followed, but please follow the existing code's style. And remember to always run `grunt` before sending a pull request to make sure the unit tests and JSHint rules are passing.
+There's no real style-guide followed, but please follow the existing code's style. And remember to
+always run `grunt` before sending a pull request to make sure the unit tests and JSHint rules are passing.
+
+When new features are being developed, unit tests and JSDoc documentation should be added as well. See existing
+tests and documentation for inspiration.
 
 # License
 Dual license, MIT/GPL. Use whatever fits your project.
