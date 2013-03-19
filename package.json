@@ -5,5 +5,8 @@
 		"grunt": "~0.4.0",
 		"grunt-contrib-jshint": "~0.1.1",
 		"grunt-mocha": "~0.2.2"
+	},
+	"scripts": {
+		"test": "grunt mocha"
 	}
 }
