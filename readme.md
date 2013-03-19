@@ -1,4 +1,6 @@
 # mqa.js (meqa.js)
+[![Build Status](https://travis-ci.org/peol/mqa.js.png?branch=master)](https://travis-ci.org/peol/mqa.js)
+
 A small (540 byte-ish, gzipped+minified!), modern library for managing media queries programmatically (i.e. in JavaScript).
 Most media query libraries I've seen forces the developer to duplicate their media query syntaxes (from CSS file to JavaScript file). See the documentation for more information and how to use the API.
 
