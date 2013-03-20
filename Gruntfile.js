@@ -3,7 +3,8 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		jshint: {
 			all: [
-				"lib/*.js"
+				"lib/*.js",
+				"test/*.js"
 			],
 			options: {
 				jshintrc: ".jshintrc"
