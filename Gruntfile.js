@@ -16,7 +16,6 @@ module.exports = function(grunt) {
 					mocha: {
 						ui: "tdd"
 					},
-					run: true,
 					ignoreLeaks: false
 				}
 			}

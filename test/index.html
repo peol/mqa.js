@@ -1,12 +1,10 @@
 <!doctype html>
 <title>mqa.js tests</title>
+<style>iframe { position: absolute; top: 100px; right: 100px; }</style>
 <meta charset="utf-8">
-<link rel="stylesheet" href="test.css">
 <link rel="stylesheet" href="mocha/mocha.css">
 <div id="mocha"></div>
-<script src="../lib/mqa.js"></script>
 <script src="expect/expect.js"></script>
 <script src="mocha/mocha.js"></script>
 <script>mocha.setup("bdd");</script>
 <script src="mqa.js"></script>
-<script>!window._phantom && mocha.run();</script>

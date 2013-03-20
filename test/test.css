@@ -1,9 +1,12 @@
-@media all and (orientation: landscape) {
-	#-mqa-alias-landscape{}
-}
-@media all and (max-width: 1024px) {
-	#-mqa-alias-maxwidth{}
-}
 @media all {
 	#-mqa-alias-third{}
+	p { color: blue; }
+}
+@media all and (orientation: landscape) {
+	#-mqa-alias-landscape{}
+	p { color: pink; }
+}
+@media all and (max-width: 300px) {
+	#-mqa-alias-maxwidth{}
+	p { color: red; }
 }
