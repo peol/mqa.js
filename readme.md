@@ -9,8 +9,14 @@ Most media query libraries I've seen forces the developer to duplicate their med
 * [Blog post explaining it](http://andreehansson.se/introducing-mqa-js/)
 
 # Browser support
-Every browser that supports `window.matchMedia` and Array Extras should be fine. Currently tested on Firefox 19,
-Safari 6, Chrome 24, IE9 (with polyfills, see [this](https://github.com/weblinc/media-match) and [this](https://github.com/paulirish/matchMedia.js/)*), IE10, iOS6.
+Every browser that supports [`window.matchMedia()`](https://developer.mozilla.org/en-US/docs/DOM/window.matchMedia) and [Array Extras](https://developer.mozilla.org/en-US/docs/tag/JavaScript%201.6) should be fine. Currently tested on:
+
+* Firefox 19
+* Safari 6
+* Chrome 24
+* IE9 (with polyfills, see [this](https://github.com/weblinc/media-match) and [this](https://github.com/paulirish/matchMedia.js/)*)
+* IE10
+* iOS6 (Safari & Chrome)
 
 # Develop
 mqa.js uses [grunt 0.4](http://gruntjs.com/).
