@@ -13,6 +13,7 @@
 
 	iframe.onload = function() {
 		var mqa = iframe.contentWindow.mqa;
+		var require = iframe.contentWindow.require;
 
 		describe("Parsing", function() {
 			it("should parse all media queries with aliases (see test.css)", function() {
@@ -74,6 +75,16 @@
 
 			it("should return false if removal was unsuccessful", function() {
 				expect(mqa.remove("hello")).to.be(false);
+			});
+		});
+
+		describe("Misc.", function() {
+			it("should define itself as an AMD module", function(done) {
+				require(["mqa"], function(_mqa) {
+					expect(_mqa).to.be.a("object");
+					expect(_mqa.add).to.be.a("function");
+					done();
+				});
 			});
 		});
 
