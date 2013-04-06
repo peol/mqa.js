@@ -4,7 +4,8 @@ module.exports = function(grunt) {
 		jshint: {
 			all: [
 				"lib/*.js",
-				"test/*.js"
+				"test/*.js",
+				"*.js"
 			],
 			options: {
 				jshintrc: ".jshintrc"
@@ -20,10 +21,25 @@ module.exports = function(grunt) {
 					ignoreLeaks: false
 				}
 			}
+		},
+		watch: {
+			scripts: {
+				files: "<%= jshint.all %>",
+				tasks: ["jshint", "test"]
+			}
+		},
+		connect: {
+			server: {
+				options: {
+					port: 9001
+				}
+			}
 		}
-	});
+});
 
 	grunt.loadNpmTasks("grunt-contrib-jshint");
+	grunt.loadNpmTasks("grunt-contrib-watch");
+	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks("grunt-mocha");
 
 	grunt.registerTask("test", "mocha");
