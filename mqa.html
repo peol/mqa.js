@@ -38,7 +38,12 @@
     
     
         
-            <div class="description">mqa is a library that minimizes the overlap of actualmedia queries between CSS and JavaScript. Other libraries tend toforce the developer into duplicating their media queries from CSSto JavaScript, which decreases maintainability a lot. mqa uses a customsyntax that it parses from @media rules and automatically triggersevents for by using defined aliases for the media queries.</div>
+            <div class="description">mqa is a library that minimizes the overlap of actual
+media queries between CSS and JavaScript. Other libraries tend to
+force the developer into duplicating their media queries from CSS
+to JavaScript, which decreases maintainability a lot. mqa uses a custom
+syntax that it parses from @media rules and automatically triggers
+events for by using defined aliases for the media queries.</div>
         
         
         
@@ -64,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mqa.js.html">mqa.js</a>, line 65
+        <a href="mqa.js.html">mqa.js</a>, line 83
     </li></ul></dd>
     
     
@@ -79,7 +84,20 @@
         
             <h3>Example</h3>
             
-    <pre class="prettyprint"><code>// style.css:&#64;media all and (min-device-width: 800px) {	<strong>#-mqa-alias-myAliasName{}</strong>	.some-class {		color: red;	}	.some-other-class {		color: blue;	}}// script.js:mqa.on("myAliasName", function(active) {	// `active` indicates whether the media query was activated or not});</code></pre>
+    <pre class="prettyprint"><code>// style.css:
+&#64;media all and (min-device-width: 800px) {
+	<strong>#-mqa-alias-myAliasName{}</strong>
+	.some-class {
+		color: red;
+	}
+	.some-other-class {
+		color: blue;
+	}
+}
+// script.js:
+mqa.on("myAliasName", function(active) {
+	// `active` indicates whether the media query was activated or not
+});</code></pre>
 
         
     
@@ -135,7 +153,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mqa.js.html">mqa.js</a>, line 208
+        <a href="mqa.js.html">mqa.js</a>, line 225
     </li></ul></dd>
     
     
@@ -276,7 +294,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mqa.js.html">mqa.js</a>, line 100
+        <a href="mqa.js.html">mqa.js</a>, line 118
     </li></ul></dd>
     
     
@@ -394,7 +412,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mqa.js.html">mqa.js</a>, line 199
+        <a href="mqa.js.html">mqa.js</a>, line 216
     </li></ul></dd>
     
     
@@ -440,7 +458,8 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>mqa.add("landscape", "(orientation: landscape");mqa.match("landscape"); // => true or false</code></pre>
+    <pre class="prettyprint"><code>mqa.add("landscape", "(orientation: landscape");
+mqa.match("landscape"); // => true or false</code></pre>
 
     
 </dd>
@@ -560,7 +579,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mqa.js.html">mqa.js</a>, line 179
+        <a href="mqa.js.html">mqa.js</a>, line 195
     </li></ul></dd>
     
     
@@ -581,7 +600,11 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>function handler(active) {	// remove this handler after being invoked once	mqa.off("landscape", handler);}mqa.on("landscape", handler);</code></pre>
+    <pre class="prettyprint"><code>function handler(active) {
+	// remove this handler after being invoked once
+	mqa.off("landscape", handler);
+}
+mqa.on("landscape", handler);</code></pre>
 
     
 </dd>
@@ -701,7 +724,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mqa.js.html">mqa.js</a>, line 154
+        <a href="mqa.js.html">mqa.js</a>, line 172
     </li></ul></dd>
     
     
@@ -722,7 +745,10 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>mqa.on("landscape", function(active) {	// invoked when the landscape media query is both activated and	// deactivated, you can check `active` to determine which one it is});</code></pre>
+    <pre class="prettyprint"><code>mqa.on("landscape", function(active) {
+	// invoked when the landscape media query is both activated and
+	// deactivated, you can check `active` to determine which one it is
+});</code></pre>
 
     
 </dd>
@@ -771,7 +797,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mqa.js.html">mqa.js</a>, line 130
+        <a href="mqa.js.html">mqa.js</a>, line 147
     </li></ul></dd>
     
     
@@ -884,7 +910,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="mqa.js.html">mqa.js</a>, line 117
+        <a href="mqa.js.html">mqa.js</a>, line 133
     </li></ul></dd>
     
     
@@ -927,7 +953,9 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>if (mqa.remove("landscape")) {	// removal successful}</code></pre>
+    <pre class="prettyprint"><code>if (mqa.remove("landscape")) {
+	// removal successful
+}</code></pre>
 
     
 </dd>
@@ -954,7 +982,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Wed Mar 13 2013 08:22:44 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Sat Apr 06 2013 22:41:00 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
