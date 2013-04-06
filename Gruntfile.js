@@ -34,14 +34,31 @@ module.exports = function(grunt) {
 					port: 9001
 				}
 			}
+		},
+		requirejs: {
+			compile: {
+				options: {
+					baseUrl: ".",
+					name: "lib/mqa.js",
+					out: "dist/mqa.min.js",
+					pragmas: {
+						"logFunction": true
+					},
+					onBuildRead: function(moduleName, path, contents) {
+						var out = contents.replace(/^\s*log\(.+\);$/gm, "");
+						return out;
+					}
+				}
+			}
 		}
 });
 
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks("grunt-mocha");
 
 	grunt.registerTask("test", "mocha");
-	grunt.registerTask("default", ["jshint", "test"]);
+	grunt.registerTask("default", ["jshint", "test", "requirejs"]);
 };

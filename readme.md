@@ -28,7 +28,8 @@ $ npm install
 // running separate tasks:
 $ grunt jshint
 $ grunt test
-// above two are equal to running just:
+$ grunt requirejs
+// above commands are equal to running just:
 $ grunt
 ```
 
