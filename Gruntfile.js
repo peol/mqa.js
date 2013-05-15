@@ -43,10 +43,6 @@ module.exports = function(grunt) {
 					out: "dist/mqa.min.js",
 					pragmas: {
 						"logFunction": true
-					},
-					onBuildRead: function(moduleName, path, contents) {
-						var out = contents.replace(/^\s*log\(.+\);$/gm, "");
-						return out;
 					}
 				}
 			}
